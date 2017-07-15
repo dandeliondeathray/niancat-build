@@ -17,8 +17,11 @@ COPY requirements.txt /tmp/
 RUN pip3 install -r /tmp/requirements.txt
 
 RUN useradd -m -G docker buildbot
-USER buildbot
 WORKDIR /buildbot
 COPY start_worker.sh /buildbot/
 
-CMD ['bin/bash', 'start_worker.sh']
+RUN chown -R buildbot:buildbot /buildbot
+
+USER buildbot
+
+CMD ["sh", "/buildbot/start_worker.sh"]

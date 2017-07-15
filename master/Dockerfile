@@ -13,4 +13,4 @@ USER buildbot
 
 RUN buildbot create-master --db=sqlite:///db/state.sqlite
 
-CMD ["buildbot", "start"]
+CMD ["buildbot", "start", "--nodaemon"]
