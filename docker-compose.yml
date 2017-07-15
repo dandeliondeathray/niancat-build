@@ -1,0 +1,29 @@
+version: '2'
+services:
+  buildbot:
+    build: master
+    environment:
+        - BUILDBOT_CONFIG_DIR=config
+        - BUILDBOT_WORKER_PORT=9989
+        - BUILDBOT_WEB_URL=http://localhost:8080/
+        - BUILDBOT_WEB_PORT=8080
+    links:
+        - db
+    depends_on:
+        - db
+    ports:
+        - "8080:8080"
+
+  worker:
+    build: niancat-micro-worker
+    environment:
+        BUILDMASTER: buildbot
+        BUILDMASTER_PORT: 9989
+        WORKERNAME: niancat-micro-worker
+        WORKER_ENVIRONMENT_BLACKLIST: DOCKER_BUILDBOT* BUILDBOT_ENV_* BUILDBOT_1* WORKER_ENVIRONMENT_BLACKLIST
+    links:
+        - buildbot
+    volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - /buildbot/data:/buildbot/data
+        - /buildbot/ivy2:/home/buildbot/.ivy2
