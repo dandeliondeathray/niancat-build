@@ -17,6 +17,8 @@ services:
 
   worker:
     build: niancat-micro-worker
+    env_file:
+        - ${HOME}/.niancat_build.env
     environment:
         BUILDMASTER: buildbot
         BUILDMASTER_PORT: 9989
