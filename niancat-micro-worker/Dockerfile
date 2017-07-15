@@ -19,6 +19,6 @@ RUN pip3 install -r /tmp/requirements.txt
 RUN useradd -m -G docker buildbot
 USER buildbot
 WORKDIR /buildbot
-RUN buildbot-worker create-worker . buildbot:8080 niancat-micro-worker $WORKERPASS
+COPY start_worker.sh /buildbot/
 
-CMD ['buildbot-worker', 'start']
+CMD ['bin/bash', 'start_worker.sh']
