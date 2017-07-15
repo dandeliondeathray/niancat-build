@@ -8,7 +8,7 @@ RUN chown -R buildbot:buildbot /var/lib/buildbot
 
 USER buildbot
 
-RUN buildbot create-master
+RUN buildbot create-master --db=sqlite:///db/state.sqlite
 COPY master.cfg /var/lib/buildbot
 
 CMD ["buildbot", "start"]
