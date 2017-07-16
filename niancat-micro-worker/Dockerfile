@@ -10,6 +10,7 @@ RUN apt install -y sbt
 
 RUN curl -fsSL get.docker.com -o get-docker.sh
 RUN sh get-docker.sh
+RUN groupmod -g 996 docker
 
 RUN pip install docker-compose
 
